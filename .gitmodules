@@ -1,0 +1,3 @@
+[submodule "usbtv007-android"]
+	path = usbtv007-android
+	url = https://github.com/chsienki/usbtv007-android
