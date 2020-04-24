@@ -1,5 +1,2 @@
 rootProject.name='TitusBrain'
-include ':app', ':libusbtv'
-
-//include ':libusbtv'
-//project(':libusbtv').projectDir = new File('C:\\projects\\usbtv007-android')
+include ':app', ':usbtv007-android:libusbtv'
