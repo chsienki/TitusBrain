@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="498dp"
+    android:height="498dp"
+    android:viewportWidth="498"
+    android:viewportHeight="498">
+    <path
+        android:fillColor="#cbc3c3"
+        android:name="Polygon 2 copy"
+        android:pathData="m208 210v19h-56v2l-27 55h83v17h95v-17h55v-1l29 -56h-84v-19z" />
+    <path
+        android:fillColor="#fff"
+        android:name="Polygon 2"
+        android:pathData="m201 203v19h-56v2l-27 55h83v17h95v-17h55v-1l29 -56h-84v-19z" />
+</vector>
