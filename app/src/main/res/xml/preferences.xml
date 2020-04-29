@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
-        app:key="notifications"
-        app:title="Enable message notifications"/>
+    <PreferenceCategory app:title="Permissions">
+        <Preference
+            app:key="drawOver"
+            app:summary="Draw over apps permission is disabled"
+            app:title="Backup Overlay" >
+        </Preference>
+    </PreferenceCategory>
 
-    <Preference
-        app:key="feedback"
-        app:title="Send feedback"
-        app:summary="Report technical issues or suggest new features"/>
+    <PreferenceCategory app:title="App Settings">
+        <SwitchPreferenceCompat
+            app:key="startAndroidAuto"
+            app:title="Start Android Auto"
+            app:summary="Automatically launch Android Auto on connect"/>
+    </PreferenceCategory>
 
 </PreferenceScreen>

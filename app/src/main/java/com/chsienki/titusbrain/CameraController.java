@@ -2,8 +2,6 @@ package com.chsienki.titusbrain;
 
 import android.content.Context;
 import android.hardware.usb.UsbDevice;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import com.arksine.libusbtv.DeviceParams;
@@ -69,7 +67,7 @@ public class CameraController implements UsbTv.DriverCallbacks, UsbTv.onFrameRec
                 .setTvNorm(UsbTv.TvNorm.NTSC)
                 .build();
 
-        // figure out permissions?
+        // this will ensure we have requested permission
         UsbTv.registerUsbReceiver(context);
 
         // open the device (will call onOpen when done)
@@ -93,6 +91,8 @@ public class CameraController implements UsbTv.DriverCallbacks, UsbTv.onFrameRec
                 }
             }
         }
+
+        receiver.OnStarted();
     }
 
     @Override
@@ -145,21 +145,19 @@ public class CameraController implements UsbTv.DriverCallbacks, UsbTv.onFrameRec
         // component, and that seems to give us a pretty accurate hit rate.
 
         // Driver gives back a stream of YUV bytes in 4:2:2 format
-        // That is every four bytes is (y1, u, y2, v) where y1 and y2 are the
-        // luminance for pixel 1 and 2, and the u and v are shared between them.
+        // That is every four bytes consists of (y1, u, y2, v) where y1 and y2 are the
+        // luminance for pixel 1 and 2, and the u and v are Chroma shared between them.
         // each pixel takes up 2 bytes, but you have to read 4 which gets the value of both
 
         // 582019 is calculated thus =>
         //      pixel (128, 404) =>
         //      720   *      2      * 404  +      2      * 128  + 3
         //      width * bytes/pixel *  Y   + bytes/pixel *  X   + 4th component of (y1, u, y2, v)
-        //
-        //                                                                                 (0,  1,  2, 3)
+        //                                                                         (0,  1,  2, 3)
         byte v = frame.getFrameBuf().get(582019);
 
         // When connected, V will be equal to 254 (-2 in signed)
         // which is due to it being ~total red
-        //return v == -2;
-        return true;
+        return v == -2;
     }
 }

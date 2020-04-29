@@ -12,18 +12,11 @@ public class UsbLaunchActivity extends Activity {
     public void onResume() {
         super.onResume();
 
-       // android.os.Debug.waitForDebugger();
         Log.i("Launcher", "Starting bg service");
+
         // make sure the background service is running
         Intent service = new Intent(this, BackgroundService.class);
         startService(service);
-
-        // hmmmmm
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
 
         // we're done here
         finish();

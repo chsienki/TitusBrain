@@ -1,6 +1,10 @@
 package com.chsienki.titusbrain;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+
+import androidx.preference.PreferenceManager;
 
 public class ConnectionManager implements ICameraNotificationReceiver {
 
@@ -12,6 +16,8 @@ public class ConnectionManager implements ICameraNotificationReceiver {
 
     private final OverlayController overlayController;
 
+    private final SharedPreferences preferences;
+
     ConnectionManager(IConnectionEventReceiver eventReceiver, Context context){
         this.eventReceiver = eventReceiver;
         this.context = context;
@@ -22,7 +28,7 @@ public class ConnectionManager implements ICameraNotificationReceiver {
         // next create a camera controller and see if we can get a camera out of it
         cameraController  = new CameraController(context, this);
 
-        // TODO: we'll handle the bluetooth etc here, too
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     private void close() {
@@ -47,5 +53,18 @@ public class ConnectionManager implements ICameraNotificationReceiver {
     @Override
     public void OnDisconnected() {
         close();
+    }
+
+    @Override
+    public void OnStarted(){
+
+        if(preferences == null){
+            return;
+        }
+
+        if(preferences.getBoolean("startAndroidAuto", false)){
+            Intent androidAuto = context.getPackageManager().getLaunchIntentForPackage("com.google.android.projection.gearhead");
+            context.startActivity(androidAuto);
+        }
     }
 }
